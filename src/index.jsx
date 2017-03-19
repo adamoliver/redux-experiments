@@ -1,13 +1,25 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import { AppContainer } from 'react-hot-loader';
-import App from './app.jsx';
+import searchApp from './reducers'
+import App from './components/App.jsx';
 
-render( <AppContainer><App/></AppContainer>, document.querySelector("#app"));
+let store = createStore(searchApp);
+
+render(
+    <AppContainer>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </AppContainer>,
+    document.querySelector("#app")
+);
 
 if (module && module.hot) {
-  module.hot.accept('./app.jsx', () => {
-    const App = require('./app.jsx').default;
+  module.hot.accept('./components/App.jsx', () => {
+    const App = require('./components/App.jsx').default;
     render(
       <AppContainer>
         <App/>
